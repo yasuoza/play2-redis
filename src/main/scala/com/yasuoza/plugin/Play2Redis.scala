@@ -12,11 +12,11 @@ class Play2Redis(app: Application) extends Plugin {
   private lazy val secret   = app.configuration.getString("redis.password")
 
   override def onStart() {
-    RedisStore(host = host, port = port, maxIdle = maxIdle, database = database, secret = secret)
+    RedisDB(host = host, port = port, maxIdle = maxIdle, database = database, secret = secret)
   }
 
   override def onStop() {
-    RedisStore.close()
+    RedisDB.close()
   }
 }
 

@@ -3,7 +3,7 @@ package com.yasuoza.plugin.test
 import org.specs2.mutable._
 import play.api.test._
 import play.api.test.Helpers._
-import com.yasuoza.plugin.RedisStore
+import com.yasuoza.plugin.RedisDB
 
 class Play2RedisSpec extends Specification {
 
@@ -17,16 +17,16 @@ class Play2RedisSpec extends Specification {
 
       running(FakeApplication(additionalConfiguration = testConfiguration)) {
 
-        RedisStore.withClient { client =>
+        RedisDB.withClient { client =>
           client.set("hello", "world")
         }
 
-        RedisStore.withClient { client =>
+        RedisDB.withClient { client =>
           client.get("hello")
         } must beSome[String].which(_ == "world")
 
         import com.redis.serialization.Parse.Implicits._
-        RedisStore.withClient { client =>
+        RedisDB.withClient { client =>
           client.pipeline { p =>
             p.set("a", 1)
             p.set("b", 2)

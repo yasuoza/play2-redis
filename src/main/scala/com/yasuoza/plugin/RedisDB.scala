@@ -2,7 +2,7 @@ package com.yasuoza.plugin
 
 import com.redis._
 
-object RedisStore {
+object RedisDB {
   private var _host: String        = _
   private var _port: Int           = _
   private var _maxIdle: Int        = _
