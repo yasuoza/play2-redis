@@ -2,7 +2,7 @@ name := "play2-redis"
 
 version := "0.1.0-SNAPSHOT"
 
-organization := "com.yasuoza"
+organization := "com.yasuoza.plugin"
 
 scalaVersion := "2.10.0"
 
