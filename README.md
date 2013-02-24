@@ -13,15 +13,17 @@ Thin redis store client wrapper for play2.1 framework.
 Add dependency to your `project/Build.scala`
 
 ```scala
-.dependsOn(RootProject( uri("git://github.com/YasuOza/play2-redis.git") ))
+"com.yasuoza.plugin" % "play2-redis" % "0.1.0"
 ```
 
 Starting project, it will be like this
 
 ```scala
-val main = play.Project(appName, appVersion, appDependencies).settings(
-  // Add your own project settings here
-).dependsOn(RootProject( uri("git://github.com/YasuOza/play2-redis.git") ))
+val appDependencies = Seq(
+  "com.yasuoza.plugin" % "play2-redis" % "0.1.0",
+  jdbc,
+  anorm
+)
 ```
 
 ## Usage
@@ -29,15 +31,15 @@ val main = play.Project(appName, appVersion, appDependencies).settings(
 You can use like this.
 
 ```scala
-import com.yasuoza.plugin.RedisStore
+import com.yasuoza.plugin.RedisDB
 
 object Application extends Controller {
   def index = Action {
-    RedisStore.withClient { client =>
+    RedisDB.withClient { client =>
         client.set("hello", "world")
       }
 
-      val helloMsg: String = RedisStore.withClient { client =>
+      val helloMsg: String = RedisDB.withClient { client =>
         client.get("hello")
       }.getOrElse("bye")
 
@@ -49,10 +51,10 @@ object Application extends Controller {
 If you want to use pipelined operation, it will be done like this.
 
 ```scala
-import com.yasuoza.plugin.RedisStore
+import com.yasuoza.plugin.RedisDB
 import com.redis.serialization.Parse.Implicits._
 
-val pipelined =  RedisStore.withClient { client =>
+val pipelined =  RedisDB.withClient { client =>
   client.pipeline { p =>
     p.set("a", 1)
     p.set("b", 2)
