@@ -8,11 +8,14 @@ scalaVersion := "2.10.0"
 
 resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-libraryDependencies ++= Seq(
-  "play" %% "play" % "2.1.0",
-  "play" %% "play-test" % "2.1.0" % "test",
-  "net.debasishg" %% "redisclient" % "2.10"
-)
+libraryDependencies ++= {
+  val playVersion = "2.1.4"
+  Seq(
+    "play" %% "play" % playVersion,
+    "play" %% "play-test" % playVersion % "test",
+    "net.debasishg" %% "redisclient" % "2.10"
+  )
+}
 
 
 publishMavenStyle := true
